@@ -1,14 +1,22 @@
 default: &default
   adapter: postgresql
-  database: daily_hub_development
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: postgres
   password:
   host: localhost
-  encoding: utf8
 
 development:
   <<: *default
+  database: daily_hub_development
+
 
 test:
   <<: *default
   database: daily_hub_test
+
+production:
+  <<: *default
+  database: daily_hub_production
+  username: daily_hub
+  password: <%= ENV['DAILY_HUB_DATABASE_PASSWORD'] %>
